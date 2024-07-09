@@ -1,50 +1,15 @@
-# Welcome to your Expo app 👋
+# Expo Router Maestro test
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an example of using Expo Router + Expo Go + Maestro to do some quick E2E testing.
 
-## Get started
+- Setup [Maestro](https://maestro.mobile.dev/getting-started/installing-maestro) (a couple global commands).
+- Maestro works on normal apps that are already built on a device. This means we can skip the slow native builds by using Expo Go with `npx expo start --ios`.
+- The test launches URLs with a custom parameter `_TEST_URL=1`. This parameter adds a component that alerts the URL (joined segments) so the test can check if the URL is correct. I used the alert because showing a normal text element wouldn't work with modals since it became a hidden accessibility element (Maestro uses the accessibility tree to find elements).
+- The test depends on Expo CLI's dev server running and using port 8081.
+- Running `maestro test launch-test.yaml` opens Expo Go, launches some URLs for Expo Go, and checks if the Expo Router URL state is expected. This can easily be extended to check other things like the UI, but I wanted to keep it simple and scalable.
 
-1. Install dependencies
+## Further work
 
-   ```bash
-   npm install
-   ```
+It could be cool to wrap Expo CLI and automatically provide the dev server URL.
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+You could also use `npx expo run:ios --configuration Release` to build and install the app without needing the dev server, it's just a lot slower.
