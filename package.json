@@ -9,6 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
+    "test:e2e": "maestro test launch-test.yaml",
     "lint": "expo lint"
   },
   "jest": {
